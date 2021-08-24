@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="script.js"></script>
+  <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+  <!-- CSS Style Sheet-->
+  <style>
+    /* Sets the look for the images as checkboxes before they are selected*/
+    label:before {
+      content: url("https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/unchecked_checkbox.png");
+      position: absolute;
+      z-index: 100;
+    }
+
+    /*This sets the stylefor when the boxes are checked*/
+    :checked+label:before {
+      content: url("https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/checked_checkbox.png");
+    }
+
+    /*Setting the display of the checkbox*/
+    input[type=checkbox] {
+      display: none;
+    }
+
+    /* sets the size for all images based in the captcha*/
+    img {
+      width: 150px;
+      height: 150px;
+    }
+
+    /*sets the size for everything that goes in the label variable */
+    label {
+      margin: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /*Sets the alignment of where the title needs to go*/
+    h1 {
+      text-align: center;
+    }
+
+    .outer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 4px;
+    }
+
+    .inner-grid {
+      flex: 25%;
+      max-width: 25%;
+      padding: 0 4px;
+    }
+
+    .inner-grid img {
+      margin-top: 8px;
+      width: 100%;
+      padding: 10px;
+    }
+
+    @media screen and (max-width: 800px) {
+      .inner-grid {
+        flex: 50%;
+        max-width: 50%;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .inner-grid {
+        flex: 100%;
+        max-width: 100%;
+      }
+    }
+
+    /*Sets the fonts for everyhting included in the body method*/
+    body {
+      font-family: Arial, Helvetica, sans-sherif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /*The popup form - hidden by default */
+    .form-popup {
+      display: none;
+      position: top;
+      bottom: 0;
+      right: 15px;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+      max-width: 300px;
+      padding: 10px;
+      background-color: white;
+    }
+
+    /* Full-width input fields */
+    .form-container input [type=text],
+    .form-container input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+
+    /*When the inputs get focus, do something */
+    .form-container input[type=text]:focus,
+    .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
+    /*Add a red background color to the cancel button*/
+    .form-container .cancel {
+      background-color: red;
+    }
+
+    /*Add some hover effects to buttons */
+    .form-container .btn:hover,
+    .open-button:hover {
+      opacity: 1;
+    }
+
+    /*Sets the border, colours, size, and where it is displayed of both buttons*/
+    .btn-group button {
+      background-color: #7d7d7d;
+      border: 1px #7d7d7d;
+      color: white;
+      padding: 10px 24px;
+      cursor: pointer;
+      width: 50%;
+      display: block;
+
+    }
+
+    /* When hovering over the buttons they will turn green*/
+    .btn-group button:hover:enabled {
+      background: green;
+    }
+
+    .btn-group2 button {
+      background-color: #7d7d7d;
+      border: 1px #7d7d7d;
+      color: white;
+      padding: 10px 24px;
+      cursor: pointer;
+      width: 50%;
+      display: block;
+
+    }
+
+    .btn-group2 button:hover:enabled {
+      background: #0099ff;
+    }
+
+
+    /*When value 1 is met on the password meter it turns red*/
+    meter[value="1"]::-webkit-meter-optimum-value {
+      background-color: red;
+    }
+
+    /*When value 2 is met on the password meter it turns yellow*/
+    meter[value="2"]::-webkit-meter-optimum-value {
+      background-color: yellow;
+    }
+
+    /*When value 3 is met on the password meter it turns orange*/
+    meter[value="3"]::-webkit-meter-optimum-value {
+      background-color: orange;
+    }
+
+    /*When value 4 is met on the password meter it turns green*/
+    meter[value="4"]::-webkit-meter-optimum-value {
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Form</h1>
+  <!--Message explaining what they user needs to do in this form-->
+  <p> Enter your details as if you were signing up to an online account.</p>
+  <p>Before selecting the submit button, select the Open CAPTCHA button and try the test out.</p>
+  <!--<form action="/action_page.php">-->
+  <!--Allows the user to type their name into the form. The required tag makes sure the user doesn't leave the box blank-->
+  <form name="form1" action="#" onsubmit="required()">
+    <label2 for="fname">Name</label2><br>
+    <input type="text" id="fname" name="fname" placeholder="Enter Name" required><br><br>
+    <!--Allows the user to tyupe their email address into the form. Again the required tag is used. The type is set aa email to make sure legitimate emails are entered using '@'-->
+    <label2 for="femail">Email</label2>
+    <br><input type="email" id="femail" name="femail" placeholder="Enter Email" required><br><br>
+    <!--Allows the user to create a username. Required used once more. Minlenght and Maxlength is used to make sure users stick to required length.-->
+    <label2 for="fuser">Username</label2>
+    <br><input type="text" id="fuser" name="fuser" placeholder="Enter Username" minlength= "5" maxlength="12" required><br><br>
+    <!--Allows users to create a password. A pattern is set to make sure users include a range of symbols numbers and letters to meet industry standard passwords. A message also displays when password doesn't match required standard.-->
+    <label2 for="password">Password - Use a mixture of upper and lower case letters, numbers, symbols and minimum length
+      of 8 characters</label2><br><input type="password" id="password" name="password" placeholder="Enter Password" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?!.*\s).*$" required>
+    <br> <meter max="4" id="password-strength"></meter>
+    <p id="password-strength-text"></p></br>
+
+
+    <div class="btn-group">
+      <!--For the Open CAPTCHA button stating when clicked the other form needs to open.-->
+      <button class="open-button" id = "CAPTCHA" onclick="openForm(); ">Open CAPTCHA</button>
+
+    </div>
+    <br>
+    <div class="btn-group">
+      <!--When the submit form is pressed to close the form.-->
+      <button class="submit-button" id = "CAPTCHA2" onclick="closeForm();  window.location.reload()" disabled >Submit</button>
+    </div>
+
+  </form>
+  <!--This is the CAPTCHA form-->
+  <div Class="form-popup" id="myForm">
+
+    <h1>CAPTCHA Test</h1>
+    <p> Complete the question below in order to submit your account. <br>
+  Press the reset button if you are struggling to answer the current question to recieve a new question. </p>
+    <div class="outer-grid">
+      <div class="inner-grid">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <p id="question"></p>
+        <input id="ans" type="text">
+        <div id="message">Please verify.</div>
+
+        <!--Displays the first image-->
+        <div class="btn-group2">
+          <!-- When images are selected the login button is pressed-->
+          <button type="submit" class="btn" onclick="closeForm2(); enableButton2() ">Confirm</button>
+        </div>
+        <!--When the close button is pressed then the form closed and goes back to the first form-->
+
+        <div class="btn-group2">
+          <button type="reset" id="reset" value="reset">Reset</button>
+        </div>
+
+        <script>
+          function refreshPage(){
+    window.location.reload();
+} 
+        </script>
+
+        <script>
+          function enableButton2() {
+  document.getElementById("CAPTCHA2").disabled = false;
+}
+        </script>
+        <!--All JavaScript-->
+        <!--Calls to the zxcvb which is for the password meter-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+        <script>
+          //This is the function for the open form it asks to get the myForm element and then display it.
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+//This function is simiilar to the previous function however this one also sends an alert thanking the user for submitting the form.
+  function closeForm() {
+    
+var empt = document.form1.fname.value;
+var empt1 = document.form1.femail.value;
+var empt2 = document.form1.fuser.value;
+var empt3 = document.form1.password.value;
+if (empt === "")
+{
+alert("Please input a Value");
+return false;
+}
+if (empt1 =="")
+{
+  alert("please input a Value");
+  return false;
+}
+if (empt2 =="")
+{
+  alert("please input a Value");
+  return false;
+}
+if (empt3 =="")
+{
+  alert("please input a Value");
+  return false;
+}
+ else
+{
+  document.getElementById("myForm").style.display = "none";
+    alert("Thank You for submitting your account");
+    return true;
+}
+}   
+
+  function closeForm2() {
+    document.getElementById("myForm").style.display = "none";
+    
+    return true;
+  }
+//This sets the text that appers next to the value
+      var strength = {
+          0: "Weakest",
+          1: "Weak",
+          2: "OK",
+          3: "Good",
+          4: "Strong"
+      }
+//creates a varable named password that stores what ever is typed into the "password" input box      
+var password = document.getElementById('password');
+//Creating another variable named meter and passibng the "password-strength" method to see what colour to display
+var meter = document.getElementById('password-strength');
+//This variable stores the message that is needed to be displayed
+var text = document.getElementById('password-strength-text');
+//This methiod is for the password meter
+password.addEventListener('input', function() {
+    var val = password.value;
+    var result = zxcvbn(val);
+    // This updates the password strength meter
+    meter.value = result.score;
+    // This updates the password meter text
+    if (val !== "") {
+        text.innerHTML = "Password Strength: " + strength[result.score]; 
+    } else {
+        text.innerHTML = "";
+    }
+});
+
+$('button[type=submit]').attr('disabled', 'disabled');
+
+var randomNum1;
+var randomNum2;
+var randomNum3;
+var randomNum4;
+
+//set the largeest number to display
+
+var maxNum = 10;
+var total;
+
+randomNum1 = Math.ceil(Math.random() * maxNum);
+randomNum2 = Math.ceil(Math.random() * maxNum);
+randomNum3 = Math.ceil(Math.random() * maxNum);
+randomNum4 = Math.ceil(Math.random() * maxNum);
+total = randomNum1 * randomNum2 + randomNum3 - randomNum4;
+
+
+$("#question").prepend(randomNum1 + " X " + randomNum2 + " + " + randomNum3 + " - " + randomNum4 + "=");
+
+
+// When users input the value
+
+$("#ans").keyup(function() {
+
+  var input = $(this).val();
+  var slideSpeed = 200;
+
+  $('#message').hide();
+
+  if (input == total) {
+
+    
+   $('button[type=submit]').removeAttr('disabled');
+    $('#success').slideDown(slideSpeed);
+    $('#fail').slideUp(slideSpeed);
+    
+
+  } else {
+   
+  
+    $('button[type=submit]').attr('disabled', 'disabled');
+    $('#fail').slideDown(slideSpeed);
+    $('#success').slideUp(slideSpeed);
+    
+
+  }
+
+});
+
+// Wheen "reset button" click, generating new randomNum1 & randomNum2
+$("#reset").on("click", function() {
+  randomNum1 = Math.ceil(Math.random() * maxNum);
+  randomNum2 = Math.ceil(Math.random() * maxNum);
+  randomNum3 = Math.ceil(Math.random() * maxNum);
+  randomNum4 = Math.ceil(Math.random() * maxNum);
+  total = randomNum1 * randomNum2 + randomNum3 - randomNum4;
+  $("#question").empty();
+  $("#ans").val('');
+  $("#question").prepend(randomNum1 + " X " + randomNum2 + " + " + randomNum3 + " - " + randomNum4 + "=");
+});
+  
+
+
+
+        </script>
+</body>
+
+</html>
